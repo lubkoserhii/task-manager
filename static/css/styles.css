@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
+
+.sidebar__brand {
+  display: block;
+  margin-bottom: 20px;
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sidebar__nav a {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.content {
+  padding: 32px;
+}
