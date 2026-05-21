@@ -28,6 +28,15 @@ body {
   color: #333;
 }
 
+.sidebar__nav button {
+  padding: 0;
+  color: #333;
+  background: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
 .content {
   padding: 32px;
 }

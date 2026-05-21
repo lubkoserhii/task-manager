@@ -3,5 +3,14 @@
 
   <nav class="sidebar__nav">
     <a href="{% url 'tasks:home' %}">Home</a>
+
+    {% if user.is_authenticated %}
+      <form action="{% url 'accounts:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    {% else %}
+      <a href="{% url 'accounts:login' %}">Login</a>
+    {% endif %}
   </nav>
 </aside>
