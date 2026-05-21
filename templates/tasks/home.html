@@ -3,4 +3,11 @@
 {% block content %}
   <h1>Task Manager</h1>
   <p>Simple workspace for managing tasks.</p>
+
+  <h2>Statistics</h2>
+  <ul>
+    <li>Tasks: {{ num_tasks }}</li>
+    <li>Completed tasks: {{ num_completed_tasks }}</li>
+    <li>Workers: {{ num_workers }}</li>
+  </ul>
 {% endblock %}
