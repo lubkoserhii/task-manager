@@ -5,6 +5,13 @@
 {% block content %}
   <h1>Tasks</h1>
   <p><a href="{% url 'tasks:task-create' %}">Create task</a></p>
+
+  <p>
+    <a href="{% url 'tasks:task-list' %}">All tasks</a>
+    |
+    <a href="{% url 'tasks:task-list' %}?filter=my">My tasks</a>
+  </p>
+
   {% include "includes/search_form.html" %}
 
   {% if task_list %}

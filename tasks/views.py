@@ -66,6 +66,19 @@ class TaskListView(LoginRequiredMixin, SearchMixin, ListView):
         "assignees"
     )
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        if self.request.GET.get("filter") == "my":
+            queryset = queryset.filter(assignees=self.request.user)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["current_filter"] = self.request.GET.get("filter", "")
+        return context
+
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task

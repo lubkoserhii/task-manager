@@ -1,4 +1,7 @@
 <form action="" method="get" class="form-inline mb-3">
+  {% if current_filter %}
+    <input type="hidden" name="filter" value="{{ current_filter }}">
+  {% endif %}
   <input
     type="text"
     name="q"
