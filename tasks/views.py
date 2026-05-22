@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -11,6 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from .forms import WorkerCreationForm
 from .models import Position, Task, TaskType, Worker
 from .searchMixin import SearchMixin
 
@@ -121,6 +123,18 @@ class WorkerListView(LoginRequiredMixin, SearchMixin, ListView):
 class WorkerDetailView(LoginRequiredMixin, DetailView):
     model = Worker
     queryset = Worker.objects.select_related("position")
+
+
+class WorkerRegisterView(CreateView):
+    model = Worker
+    form_class = WorkerCreationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("tasks:home")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
 
 
 class PositionListView(LoginRequiredMixin, SearchMixin, ListView):
