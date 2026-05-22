@@ -5,6 +5,7 @@
 {% block content %}
   <h1>Task types</h1>
   <p><a href="{% url 'tasks:task-type-create' %}">Create task type</a></p>
+  {% include "includes/search_form.html" %}
 
   {% if tasktype_list %}
     <ul>

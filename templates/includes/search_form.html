@@ -1,0 +1,13 @@
+<form action="" method="get" class="form-inline mb-3">
+  <input
+    type="text"
+    name="q"
+    value="{{ search_query }}"
+    class="form-control mr-2"
+    placeholder="Search"
+  >
+  <button type="submit" class="btn btn-primary">Search</button>
+  {% if search_query %}
+    <a href="{{ request.path }}" class="btn btn-secondary">Clear</a>
+  {% endif %}
+</form>

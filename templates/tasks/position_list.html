@@ -5,6 +5,7 @@
 {% block content %}
   <h1>Positions</h1>
   <p><a href="{% url 'tasks:position-create' %}">Create position</a></p>
+  {% include "includes/search_form.html" %}
 
   {% if position_list %}
     <ul>
