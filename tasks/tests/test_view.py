@@ -62,3 +62,28 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.context["is_paginated"])
         self.assertEqual(len(response.context["task_list"]), 5)
+
+    def test_task_list_search_filters_results(self):
+        Task.objects.create(
+            name="Fix dashboard",
+            deadline=date.today(),
+            task_type=self.task_type,
+        )
+        Task.objects.create(
+            name="Add profile page",
+            deadline=date.today(),
+            task_type=self.task_type,
+        )
+        self.client.force_login(self.user)
+
+        response = self.client.get(
+            reverse("tasks:task-list"),
+            {"q": "dashboard"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerySetEqual(
+            response.context["task_list"],
+            ["Fix dashboard"],
+            transform=str,
+        )
