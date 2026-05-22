@@ -115,3 +115,20 @@ class ViewTests(TestCase):
             ["My task"],
             transform=str,
         )
+
+    def test_toggle_task_status_changes_status_and_redirects_back(self):
+        task = Task.objects.create(
+            name="Toggle task",
+            deadline=date.today(),
+            task_type=self.task_type,
+        )
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse("tasks:task-toggle-status", kwargs={"pk": task.pk}),
+            HTTP_REFERER=reverse("tasks:task-list"),
+        )
+        task.refresh_from_db()
+
+        self.assertRedirects(response, reverse("tasks:task-list"))
+        self.assertTrue(task.is_completed)
