@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Tasks</title>{% endblock %}
+
+{% block content %}
+  <h1>Tasks</h1>
+  <p><a href="{% url 'tasks:task-create' %}">Create task</a></p>
+
+  {% if task_list %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Priority</th>
+          <th>Deadline</th>
+          <th>Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in task_list %}
+          <tr>
+            <td><a href="{% url 'tasks:task-detail' pk=task.pk %}">{{ task.name }}</a></td>
+            <td>{{ task.task_type }}</td>
+            <td>{{ task.get_priority_display }}</td>
+            <td>{{ task.deadline }}</td>
+            <td>{{ task.is_completed|yesno:"Yes,No" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No tasks yet.</p>
+  {% endif %}
+{% endblock %}

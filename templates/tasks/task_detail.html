@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}<title>{{ task.name }}</title>{% endblock %}
+
+{% block content %}
+  <h1>{{ task.name }}</h1>
+
+  <p><strong>Type:</strong> {{ task.task_type }}</p>
+  <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
+  <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+  <p><strong>Completed:</strong> {{ task.is_completed|yesno:"Yes,No" }}</p>
+  <p><strong>Description:</strong> {{ task.description|linebreaksbr }}</p>
+
+  <h2>Assignees</h2>
+  {% if task.assignees.all %}
+    <ul>
+      {% for worker in task.assignees.all %}
+        <li>
+          <a href="{% url 'tasks:worker-detail' pk=worker.pk %}">{{ worker }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No assignees.</p>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'tasks:task-update' pk=task.pk %}">Update</a>
+    <a href="{% url 'tasks:task-delete' pk=task.pk %}">Delete</a>
+  </p>
+{% endblock %}
