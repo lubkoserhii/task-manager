@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from tasks.models import Task, TaskType
+from tasks.models import Position, Task, TaskType, Worker
 
 
 class ViewTests(TestCase):
@@ -132,3 +132,24 @@ class ViewTests(TestCase):
 
         self.assertRedirects(response, reverse("tasks:task-list"))
         self.assertTrue(task.is_completed)
+
+    def test_register_view_creates_worker(self):
+        position = Position.objects.create(name="QA")
+
+        response = self.client.post(
+            reverse("tasks:register"),
+            {
+                "username": "new.worker",
+                "password1": "StrongPass123",
+                "password2": "StrongPass123",
+                "position": position.pk,
+            },
+        )
+
+        self.assertRedirects(response, reverse("tasks:home"))
+        self.assertTrue(
+            Worker.objects.filter(
+                username="new.worker",
+                position=position,
+            ).exists()
+        )
