@@ -87,3 +87,31 @@ class ViewTests(TestCase):
             ["Fix dashboard"],
             transform=str,
         )
+
+    def test_task_list_my_filter_shows_only_assigned_tasks(self):
+        other_user = get_user_model().objects.create_user(username="other.user")
+        assigned_task = Task.objects.create(
+            name="My task",
+            deadline=date.today(),
+            task_type=self.task_type,
+        )
+        assigned_task.assignees.add(self.user)
+        other_task = Task.objects.create(
+            name="Other task",
+            deadline=date.today(),
+            task_type=self.task_type,
+        )
+        other_task.assignees.add(other_user)
+        self.client.force_login(self.user)
+
+        response = self.client.get(
+            reverse("tasks:task-list"),
+            {"filter": "my"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerySetEqual(
+            response.context["task_list"],
+            ["My task"],
+            transform=str,
+        )
