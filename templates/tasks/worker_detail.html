@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}<title>{{ worker }}</title>{% endblock %}
+
+{% block content %}
+  <h1>{{ worker }}</h1>
+
+  <p><strong>Username:</strong> {{ worker.username }}</p>
+  <p><strong>Email:</strong> {{ worker.email|default:"-" }}</p>
+  <p><strong>Position:</strong> {{ worker.position|default:"-" }}</p>
+
+  <h2>Tasks</h2>
+  {% if worker.tasks.all %}
+    <ul>
+      {% for task in worker.tasks.all %}
+        <li><a href="{% url 'tasks:task-detail' pk=task.pk %}">{{ task }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tasks assigned.</p>
+  {% endif %}
+{% endblock %}
