@@ -12,7 +12,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import WorkerCreationForm
+from .forms import TaskForm, WorkerCreationForm
 from .models import Position, Task, TaskType, Worker
 from .searchMixin import SearchMixin
 
@@ -76,29 +76,13 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
-    fields = (
-        "name",
-        "description",
-        "deadline",
-        "is_completed",
-        "priority",
-        "task_type",
-        "assignees",
-    )
+    form_class = TaskForm
     success_url = reverse_lazy("tasks:task-list")
 
 
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = (
-        "name",
-        "description",
-        "deadline",
-        "is_completed",
-        "priority",
-        "task_type",
-        "assignees",
-    )
+    form_class = TaskForm
     success_url = reverse_lazy("tasks:task-list")
 
 
@@ -122,7 +106,7 @@ class WorkerListView(LoginRequiredMixin, SearchMixin, ListView):
 
 class WorkerDetailView(LoginRequiredMixin, DetailView):
     model = Worker
-    queryset = Worker.objects.select_related("position")
+    queryset = Worker.objects.select_related("position").prefetch_related("tasks")
 
 
 class WorkerRegisterView(CreateView):
