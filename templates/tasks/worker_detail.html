@@ -11,9 +11,25 @@
 
   <h2>Tasks</h2>
   {% if worker.tasks.all %}
+    <h3>Active Tasks</h3>
     <ul>
       {% for task in worker.tasks.all %}
-        <li><a href="{% url 'tasks:task-detail' pk=task.pk %}">{{ task }}</a></li>
+        {% if not task.is_completed %}
+          <li><a href="{% url 'tasks:task-detail' pk=task.pk %}">{{ task.name }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <h3>Completed Tasks</h3>
+    <ul>
+      {% for task in worker.tasks.all %}
+        {% if task.is_completed %}
+          <li>
+            <del>
+              <a href="{% url 'tasks:task-detail' pk=task.pk %}">{{ task.name }}</a>
+            </del>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   {% else %}
