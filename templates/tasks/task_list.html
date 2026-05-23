@@ -1,53 +1,106 @@
 {% extends "base.html" %}
 
-{% block title %}<title>Tasks</title>{% endblock %}
+{% block title %}<title>Tasks | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h2 class="page-title">Tasks</h2>
+        <div class="text-muted mt-1">Company backlog and personal assignments</div>
+      </div>
+      <div class="col-auto ms-auto d-print-none">
+        <a href="{% url 'tasks:task-create' %}" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>Create task
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block content %}
-  <h1>Tasks</h1>
-  <p><a href="{% url 'tasks:task-create' %}">Create task</a></p>
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+      <div class="btn-group flex-shrink-0">
+        <a class="btn {% if not current_filter %}btn-primary{% else %}btn-outline-secondary{% endif %}"
+          href="{% url 'tasks:task-list' %}">All tasks</a>
+        <a class="btn {% if current_filter == 'my' %}btn-primary{% else %}btn-outline-secondary{% endif %}"
+          href="{% url 'tasks:task-list' %}?filter=my">My tasks</a>
+      </div>
+      {% include "includes/search_form.html" %}
+    </div>
+  </div>
+</div>
 
-  <p>
-    <a href="{% url 'tasks:task-list' %}">All tasks</a>
-    |
-    <a href="{% url 'tasks:task-list' %}?filter=my">My tasks</a>
-  </p>
-
-  {% include "includes/search_form.html" %}
-
-  {% if task_list %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Priority</th>
-          <th>Deadline</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for task in task_list %}
-          <tr>
-            <td><a href="{% url 'tasks:task-detail' pk=task.pk %}">{{ task.name }}</a></td>
-            <td>{{ task.task_type }}</td>
-            <td>{{ task.get_priority_display }}</td>
-            <td>{{ task.deadline }}</td>
-            <td>
+{% if task_list %}
+  <div class="card">
+    <div class="list-group list-group-flush">
+      {% for task in task_list %}
+        <div class="list-group-item">
+          <div class="row align-items-center">
+            <div class="col-auto">
               <form action="{% url 'tasks:task-toggle-status' pk=task.pk %}" method="post">
                 {% csrf_token %}
-                <button
-                  type="submit"
+                <button type="submit"
                   class="btn btn-sm {% if task.is_completed %}btn-success{% else %}btn-outline-secondary{% endif %}"
-                >
-                  {% if task.is_completed %}&#10003;{% else %}&#9633;{% endif %}
+                  style="width: 32px; height: 32px; padding: 0; border-radius: 50%;"
+                  title="{% if task.is_completed %}Mark as active{% else %}Mark as done{% endif %}">
+                  <i class="ti ti-check" style="font-size: 14px;"></i>
                 </button>
               </form>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No tasks yet.</p>
-  {% endif %}
+            </div>
+            <div class="col">
+              <a href="{% url 'tasks:task-detail' pk=task.pk %}"
+                class="text-decoration-none fw-medium {% if task.is_completed %}text-muted text-decoration-line-through{% endif %}">
+                {{ task.name }}
+              </a>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="badge bg-secondary-lt text-secondary">{{ task.task_type }}</span>
+                {% if task.priority == 'urgent' %}
+                  <span class="badge bg-danger-lt text-danger">{{ task.get_priority_display }}</span>
+                {% elif task.priority == 'high' %}
+                  <span class="badge bg-warning-lt text-warning">{{ task.get_priority_display }}</span>
+                {% elif task.priority == 'medium' %}
+                  <span class="badge bg-info-lt text-info">{{ task.get_priority_display }}</span>
+                {% else %}
+                  <span class="badge bg-secondary-lt text-secondary">{{ task.get_priority_display }}</span>
+                {% endif %}
+                <span class="badge bg-secondary-lt text-secondary">
+                  <i class="ti ti-calendar me-1" style="font-size: 11px;"></i>{{ task.deadline }}
+                </span>
+              </div>
+            </div>
+            <div class="col-auto">
+              <a href="{% url 'tasks:task-detail' pk=task.pk %}" class="text-muted">
+                <i class="ti ti-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <div class="empty">
+    <div class="empty-icon">
+      <i class="ti ti-checklist" style="font-size: 3rem;"></i>
+    </div>
+    <p class="empty-title">No tasks found</p>
+    <p class="empty-subtitle text-muted">
+      {% if current_filter == 'my' %}You have no tasks assigned to you.
+      {% elif search_query %}No tasks match your search.
+      {% else %}Create your first task to get started.{% endif %}
+    </p>
+    {% if not current_filter and not search_query %}
+      <div class="empty-action">
+        <a href="{% url 'tasks:task-create' %}" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>Create task
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
 {% endblock %}

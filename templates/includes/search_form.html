@@ -1,16 +1,24 @@
-<form action="" method="get" class="form-inline mb-3">
+<form action="" method="get" class="d-flex gap-2 flex-fill">
   {% if current_filter %}
     <input type="hidden" name="filter" value="{{ current_filter }}">
   {% endif %}
-  <input
-    type="text"
-    name="q"
-    value="{{ search_query }}"
-    class="form-control mr-2"
-    placeholder="Search"
-  >
-  <button type="submit" class="btn btn-primary">Search</button>
-  {% if search_query %}
-    <a href="{{ request.path }}" class="btn btn-secondary">Clear</a>
-  {% endif %}
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="ti ti-search"></i>
+    </span>
+    <input
+      type="text"
+      name="q"
+      value="{{ search_query }}"
+      class="form-control"
+      placeholder="Search..."
+    >
+    {% if search_query %}
+      <a href="{{ request.path }}" class="btn btn-outline-secondary">
+        <i class="ti ti-x"></i>
+      </a>
+    {% else %}
+      <button type="submit" class="btn btn-outline-secondary">Search</button>
+    {% endif %}
+  </div>
 </form>

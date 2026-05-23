@@ -1,19 +1,63 @@
 {% extends "base.html" %}
 
-{% block title %}<title>Task types</title>{% endblock %}
+{% block title %}<title>Task types | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h2 class="page-title">Task types</h2>
+        <div class="text-muted mt-1">Categories for organizing tasks</div>
+      </div>
+      <div class="col-auto ms-auto d-print-none">
+        <a href="{% url 'tasks:task-type-create' %}" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>Create task type
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block content %}
-  <h1>Task types</h1>
-  <p><a href="{% url 'tasks:task-type-create' %}">Create task type</a></p>
-  {% include "includes/search_form.html" %}
+<div class="card mb-3">
+  <div class="card-body">
+    {% include "includes/search_form.html" %}
+  </div>
+</div>
 
-  {% if tasktype_list %}
-    <ul>
+{% if tasktype_list %}
+  <div class="card">
+    <div class="list-group list-group-flush">
       {% for task_type in tasktype_list %}
-        <li>{{ task_type.name }}</li>
+        <div class="list-group-item">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-sm me-3 bg-purple-lt text-purple">
+              <i class="ti ti-tag"></i>
+            </span>
+            <span class="fw-medium">{{ task_type.name }}</span>
+          </div>
+        </div>
       {% endfor %}
-    </ul>
-  {% else %}
-    <p>No task types yet.</p>
-  {% endif %}
+    </div>
+  </div>
+{% else %}
+  <div class="empty">
+    <div class="empty-icon">
+      <i class="ti ti-tags" style="font-size: 3rem;"></i>
+    </div>
+    <p class="empty-title">No task types found</p>
+    <p class="empty-subtitle text-muted">
+      {% if search_query %}No task types match your search.{% else %}Create your first task type to get started.{% endif %}
+    </p>
+    {% if not search_query %}
+      <div class="empty-action">
+        <a href="{% url 'tasks:task-type-create' %}" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>Create task type
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
 {% endblock %}

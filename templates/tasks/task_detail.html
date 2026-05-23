@@ -1,31 +1,113 @@
 {% extends "base.html" %}
 
-{% block title %}<title>{{ task.name }}</title>{% endblock %}
+{% block title %}<title>{{ task.name }} | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <div class="page-pretitle">
+          <a href="{% url 'tasks:task-list' %}" class="text-muted">Tasks</a>
+        </div>
+        <h2 class="page-title">{{ task.name }}</h2>
+      </div>
+      <div class="col-auto ms-auto d-print-none">
+        <div class="btn-group">
+          <a href="{% url 'tasks:task-update' pk=task.pk %}" class="btn btn-outline-primary">
+            <i class="ti ti-edit me-1"></i>Edit
+          </a>
+          <a href="{% url 'tasks:task-delete' pk=task.pk %}" class="btn btn-outline-danger">
+            <i class="ti ti-trash me-1"></i>Delete
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block content %}
-  <h1>{{ task.name }}</h1>
+<div class="row row-cards">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Task details</h3>
+        <div class="card-options">
+          <div class="d-flex gap-1">
+            {% if task.priority == 'urgent' %}
+              <span class="badge bg-danger-lt text-danger">{{ task.get_priority_display }}</span>
+            {% elif task.priority == 'high' %}
+              <span class="badge bg-warning-lt text-warning">{{ task.get_priority_display }}</span>
+            {% elif task.priority == 'medium' %}
+              <span class="badge bg-info-lt text-info">{{ task.get_priority_display }}</span>
+            {% else %}
+              <span class="badge bg-secondary-lt text-secondary">{{ task.get_priority_display }}</span>
+            {% endif %}
+            <span class="badge bg-secondary-lt text-secondary">{{ task.task_type }}</span>
+            <span class="badge {% if task.is_completed %}bg-success-lt text-success{% else %}bg-warning-lt text-warning{% endif %}">
+              {{ task.is_completed|yesno:"Completed,Active" }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="datagrid">
+          <div class="datagrid-item">
+            <div class="datagrid-title">Deadline</div>
+            <div class="datagrid-content">
+              <i class="ti ti-calendar me-1 text-muted"></i>{{ task.deadline }}
+            </div>
+          </div>
+          <div class="datagrid-item">
+            <div class="datagrid-title">Status</div>
+            <div class="datagrid-content">
+              {% if task.is_completed %}
+                <span class="status-dot bg-success me-1"></span>Completed
+              {% else %}
+                <span class="status-dot status-dot-animated bg-warning me-1"></span>Active
+              {% endif %}
+            </div>
+          </div>
+          <div class="datagrid-item">
+            <div class="datagrid-title">Task type</div>
+            <div class="datagrid-content">{{ task.task_type }}</div>
+          </div>
+        </div>
+        {% if task.description %}
+          <div class="mt-4">
+            <div class="text-muted small mb-1">Description</div>
+            <div>{{ task.description|linebreaksbr }}</div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
-  <p><strong>Type:</strong> {{ task.task_type }}</p>
-  <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
-  <p><strong>Deadline:</strong> {{ task.deadline }}</p>
-  <p><strong>Completed:</strong> {{ task.is_completed|yesno:"Yes,No" }}</p>
-  <p><strong>Description:</strong> {{ task.description|linebreaksbr }}</p>
-
-  <h2>Assignees</h2>
-  {% if task.assignees.all %}
-    <ul>
-      {% for worker in task.assignees.all %}
-        <li>
-          <a href="{% url 'tasks:worker-detail' pk=worker.pk %}">{{ worker }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No assignees.</p>
-  {% endif %}
-
-  <p>
-    <a href="{% url 'tasks:task-update' pk=task.pk %}">Update</a>
-    <a href="{% url 'tasks:task-delete' pk=task.pk %}">Delete</a>
-  </p>
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="ti ti-users me-2 text-muted"></i>Assignees
+        </h3>
+      </div>
+      {% if task.assignees.all %}
+        <div class="list-group list-group-flush">
+          {% for worker in task.assignees.all %}
+            <a href="{% url 'tasks:worker-detail' pk=worker.pk %}" class="list-group-item list-group-item-action">
+              <div class="d-flex align-items-center">
+                <span class="avatar avatar-sm me-2 bg-blue">{{ worker.username|first|upper }}</span>
+                <div>{{ worker }}</div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="card-body">
+          <p class="text-muted mb-0">No assignees.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}
