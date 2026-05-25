@@ -14,7 +14,7 @@ from .views import (
     WorkerDetailView,
     WorkerListView,
     WorkerRegisterView,
-    toggle_task_status,
+    TaskToggleStatusView,
 )
 
 app_name = "tasks"
@@ -26,7 +26,7 @@ urlpatterns = [
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     path(
         "tasks/<int:pk>/toggle-status/",
-        toggle_task_status,
+        TaskToggleStatusView.as_view(),
         name="task-toggle-status",
     ),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),

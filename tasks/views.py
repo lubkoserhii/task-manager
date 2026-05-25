@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -18,12 +18,18 @@ from .models import Position, Task, TaskType, Worker
 from .searchMixin import SearchMixin
 
 
-@login_required
-def toggle_task_status(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.is_completed = not task.is_completed
-    task.save(update_fields=["is_completed"])
-    return redirect(request.META.get("HTTP_REFERER", "tasks:task-list"))
+class TaskToggleStatusView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        return self._toggle_status(request, pk)
+
+    def post(self, request, pk):
+        return self._toggle_status(request, pk)
+
+    def _toggle_status(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        task.is_completed = not task.is_completed
+        task.save(update_fields=["is_completed"])
+        return redirect(request.META.get("HTTP_REFERER", "tasks:task-list"))
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
