@@ -4,8 +4,14 @@ Project for managing your tasks
 
 ## Check it out!
 
-Task Manager project deployed on Render: (!!!Сюди вставити посилання!!!)
+Task Manager project deployed on Render: (https://task-manager-cz5i.onrender.com)
 
+### Feel free to use it for testing!
+
+````
+* login: andrea_d
+* password: dolan123
+````
 
 ## Installation
 
