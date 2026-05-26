@@ -15,7 +15,7 @@ from django.views.generic import (
 
 from .forms import TaskForm, WorkerCreationForm
 from .models import Position, Task, TaskType, Worker
-from .searchMixin import SearchMixin
+from tasks.utils.search_mixin import SearchMixin
 
 
 class TaskToggleStatusView(LoginRequiredMixin, View):
