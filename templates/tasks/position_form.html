@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Create position | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <div class="page-pretitle">
+          <a href="{% url 'tasks:position-list' %}" class="text-muted">Positions</a>
+        </div>
+        <h2 class="page-title">Create position</h2>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="mt-4 d-flex gap-2">
+            <button class="btn btn-primary" type="submit">
+              <i class="ti ti-device-floppy me-1"></i>Save
+            </button>
+            <a href="{% url 'tasks:position-list' %}" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

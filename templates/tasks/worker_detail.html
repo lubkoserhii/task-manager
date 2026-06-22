@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}<title>{{ worker }} | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <div class="page-pretitle">
+          <a href="{% url 'tasks:worker-list' %}" class="text-muted">Workers</a>
+        </div>
+        <h2 class="page-title">{{ worker }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row row-cards">
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body text-center py-5">
+        <span class="avatar avatar-xl mb-3 bg-blue text-white" style="font-size: 2rem;">
+          {{ worker.username|first|upper }}
+        </span>
+        <h3 class="mb-1">{{ worker }}</h3>
+        <div class="text-muted mb-3">{{ worker.position|default:"No position assigned" }}</div>
+      </div>
+      <div class="card-footer">
+        <div class="row g-3">
+          <div class="col">
+            <div class="text-muted small">Username</div>
+            <div class="fw-medium">{{ worker.username }}</div>
+          </div>
+          {% if worker.email %}
+            <div class="col">
+              <div class="text-muted small">Email</div>
+              <div class="fw-medium">{{ worker.email }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="status-dot status-dot-animated bg-warning me-2"></span>Active Tasks
+        </h3>
+      </div>
+      <div class="list-group list-group-flush">
+        {% for task in worker.tasks.all %}
+          {% if not task.is_completed %}
+            <a href="{% url 'tasks:task-detail' pk=task.pk %}" class="list-group-item list-group-item-action">
+              <div class="d-flex align-items-center gap-2">
+                <i class="ti ti-circle text-warning"></i>
+                {{ task.name }}
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+        {% if not worker.tasks.all %}
+          <div class="list-group-item text-muted">No tasks assigned.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="status-dot bg-success me-2"></span>Completed Tasks
+        </h3>
+      </div>
+      <div class="list-group list-group-flush">
+        {% for task in worker.tasks.all %}
+          {% if task.is_completed %}
+            <a href="{% url 'tasks:task-detail' pk=task.pk %}" class="list-group-item list-group-item-action">
+              <div class="d-flex align-items-center gap-2">
+                <i class="ti ti-circle-check text-success"></i>
+                <del class="text-muted">{{ task.name }}</del>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+        {% if not worker.tasks.all %}
+          <div class="list-group-item text-muted">No completed tasks.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

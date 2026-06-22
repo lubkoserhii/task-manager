@@ -1,0 +1,430 @@
+[
+{
+    "model": "tasks.position",
+    "pk": 1,
+    "fields": {
+        "name": "Python Developer"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 2,
+    "fields": {
+        "name": "QA"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 3,
+    "fields": {
+        "name": "Project Manager"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 4,
+    "fields": {
+        "name": "Full Stack Developer"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 5,
+    "fields": {
+        "name": "Data Analyst"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 6,
+    "fields": {
+        "name": "Java Developer"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 7,
+    "fields": {
+        "name": "UI/UX Designer"
+    }
+},
+{
+    "model": "tasks.position",
+    "pk": 8,
+    "fields": {
+        "name": "Team Leader"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 1,
+    "fields": {
+        "name": "Bug Fix"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 2,
+    "fields": {
+        "name": "Feature"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 3,
+    "fields": {
+        "name": "Refactoring"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 4,
+    "fields": {
+        "name": "Testing"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 5,
+    "fields": {
+        "name": "Documentation"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 6,
+    "fields": {
+        "name": "Deployment"
+    }
+},
+{
+    "model": "tasks.tasktype",
+    "pk": 7,
+    "fields": {
+        "name": "Design"
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$HSNEZcnSepxICuIyRymLEd$eRmx2+83sWapaZboR3rAMcubEQp9ZNO08HJRnArO50w=",
+        "last_login": "2026-05-22T14:20:45.947Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-05-20T14:56:19.367Z",
+        "position": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$6rysnFhLydgDORrsYPCoBx$8vL1ryvLcxV60YMQnBr6uE5t5e8WdkbXNcFKVU4HRhU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mike_d",
+        "first_name": "Michael",
+        "last_name": "Denver",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:19:26Z",
+        "position": 5,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$c1wnzQpUZch0Vs3fESOcSJ$WyFibclxjpd7/8e1PRSMz2j3RtLtfuHJxmBc7c46/t0=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "luke_n",
+        "first_name": "Luke",
+        "last_name": "Nichols",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:21:26Z",
+        "position": 2,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$xBHBCZstKZ24SS0PQ5XmfU$bESva/DMOfWwmFFWjbxC6UgUfuIY/FmOZRKxJ5qNawQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "bryan_a",
+        "first_name": "Bryan",
+        "last_name": "Adams",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:22:48Z",
+        "position": 6,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$9SK7bYRN3uuUvYt2NIwE5a$SX4Nbj7AbAMiGerzrNE0wgTVYjKvR9/fxQ3IztnMoOQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "margo_k",
+        "first_name": "Margot",
+        "last_name": "Kidder",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:23:49Z",
+        "position": 7,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$2sb5E4wxo6xYAXBuhMPsMv$AqVfTh5pjjDyOAae3ecRPuOz0yC/LaysT/w74aw8lGo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "helen_s",
+        "first_name": "Helen",
+        "last_name": "Scheurer",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:25:10Z",
+        "position": 3,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$278K8rqWA1jq9OYu6fDlZe$EII7lfxqNM1EKeHhJLovtUpyQomu7pPmaUD9cSRDcA4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "tony_m",
+        "first_name": "Antony",
+        "last_name": "Morato",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:26:36Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$KBIv9e8IH1hB23VlwQf3Lz$BZJ5qcX1PE2fzAZlGwp04V6RDEP1zoVgFjxT267KRW8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "marc_a",
+        "first_name": "Marc",
+        "last_name": "Aurel",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:27:40Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$4tOdxzjxTTb1K2sst6EJPD$5F7JqAqZwK4ZbqWXFHNhOyiD2IzVPeSImGia/WhwaXk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "natali_r",
+        "first_name": "Natalia",
+        "last_name": "Rao",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:28:57Z",
+        "position": 4,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$GKzrL76SIrYaPvYbEXgoT2$gB6WKYfHognxiMcRFmC96B++45Cyd7tdDyEci+YlGAY=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "anne_c",
+        "first_name": "Anne",
+        "last_name": "Conway",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:29:58Z",
+        "position": 7,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$vc806ICfgYi3rBqcAhyqAT$gaUHUn0HQS/oOVPrWaRHhiHGlfYLQSW1zQTRIHGzLKg=",
+        "last_login": "2026-05-22T17:26:33.052Z",
+        "is_superuser": false,
+        "username": "andrea_d",
+        "first_name": "Andrea",
+        "last_name": "Dolan",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T10:31:06Z",
+        "position": 8,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 16,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$4EBLMAJHpxDmghjwePqb6n$Irg2wr/15ToPwKCZ5+hJlvVvPrf73ardpmWSsQJKr2c=",
+        "last_login": "2026-05-23T15:05:25.026Z",
+        "is_superuser": false,
+        "username": "george_h",
+        "first_name": "George",
+        "last_name": "Harrison",
+        "email": "harrison@post.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-22T17:29:12.564Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.worker",
+    "pk": 18,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$77mBWrvWIRKrWPj38jaq5G$MlASIKHncpTnPgzlQPeq5yCb0X/md3vq+xKp0fOJZ8M=",
+        "last_login": "2026-05-25T12:45:58.894Z",
+        "is_superuser": false,
+        "username": "michael_j",
+        "first_name": "Michael",
+        "last_name": "Johnson",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-05-25T07:23:35.407Z",
+        "position": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+        "name": "Implement Google OAuth2 authentication",
+        "description": "Add a “Sign in with Google” button to the login page. Configure the system to redirect the user to the home page after a successful login.",
+        "deadline": "2026-05-29",
+        "is_completed": false,
+        "priority": "high",
+        "task_type": 2,
+        "assignees": [
+            8,
+            13
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+        "name": "Fix CSRF forbidden error on Message Create form",
+        "description": "When attempting to submit the message creation form, a 403 error occurs. Please check that the {% csrf_token %} tag is present in the message_form.html template and add method=\"post\".",
+        "deadline": "2026-06-30",
+        "is_completed": true,
+        "priority": "medium",
+        "task_type": 1,
+        "assignees": [
+            12
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+        "name": "Optimize N+1 query problem in TaskListView",
+        "description": "The Django Debug Toolbar detects over 50 duplicate SQL queries when loading the list of tasks. You need to add select_related and prefetch_related to the get_queryset method.",
+        "deadline": "2026-05-30",
+        "is_completed": false,
+        "priority": "medium",
+        "task_type": 3,
+        "assignees": [
+            12
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 4,
+    "fields": {
+        "name": "Write form validation tests for TaskForm",
+        "description": "Testing is required to validate the fields in the task creation form. Check how invalid dates (deadlines in the past) are handled and ensure that valid data is correctly added to the cleaned_data dictionary.",
+        "deadline": "2026-06-25",
+        "is_completed": false,
+        "priority": "medium",
+        "task_type": 4,
+        "assignees": [
+            7
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 5,
+    "fields": {
+        "name": "Configure GitHub Actions workflow for CI/CD",
+        "description": "Create a configuration file called .github/workflows/test.yml. Set up the python manage.py test command to run automatically whenever a commit is pushed or a Pull Request is created on the main branch.",
+        "deadline": "2026-07-01",
+        "is_completed": false,
+        "priority": "low",
+        "task_type": 6,
+        "assignees": [
+            15
+        ]
+    }
+}
+]

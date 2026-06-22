@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Workers | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h2 class="page-title">Workers</h2>
+        <div class="text-muted mt-1">Team members</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+    {% include "includes/search_form.html" %}
+  </div>
+</div>
+
+{% if worker_list %}
+  <div class="card">
+    <div class="list-group list-group-flush">
+      {% for worker in worker_list %}
+        <a href="{% url 'tasks:worker-detail' pk=worker.pk %}" class="list-group-item list-group-item-action">
+          <div class="d-flex align-items-center">
+            <span class="avatar me-3 bg-blue">{{ worker.username|first|upper }}</span>
+            <div class="flex-fill">
+              <div class="fw-medium">{{ worker }}</div>
+              {% if worker.position %}
+                <div class="text-muted small">{{ worker.position }}</div>
+              {% endif %}
+            </div>
+            <i class="ti ti-chevron-right text-muted"></i>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <div class="empty">
+    <div class="empty-icon">
+      <i class="ti ti-users" style="font-size: 3rem;"></i>
+    </div>
+    <p class="empty-title">No workers found</p>
+    <p class="empty-subtitle text-muted">
+      {% if search_query %}No workers match your search.{% else %}No workers registered yet.{% endif %}
+    </p>
+  </div>
+{% endif %}
+{% endblock %}

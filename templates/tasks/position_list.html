@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Positions | Task Manager</title>{% endblock %}
+
+{% block page_header %}
+<div class="page-header d-print-none">
+  <div class="container-xl">
+    <div class="row g-2 align-items-center">
+      <div class="col">
+        <h2 class="page-title">Positions</h2>
+        <div class="text-muted mt-1">Job positions for team members</div>
+      </div>
+      <div class="col-auto ms-auto d-print-none">
+        <a href="{% url 'tasks:position-create' %}" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>Create position
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+    {% include "includes/search_form.html" %}
+  </div>
+</div>
+
+{% if position_list %}
+  <div class="card">
+    <div class="list-group list-group-flush">
+      {% for position in position_list %}
+        <div class="list-group-item">
+          <div class="d-flex align-items-center">
+            <span class="avatar avatar-sm me-3 bg-blue-lt text-blue">
+              <i class="ti ti-briefcase"></i>
+            </span>
+            <span class="fw-medium">{{ position.name }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <div class="empty">
+    <div class="empty-icon">
+      <i class="ti ti-briefcase" style="font-size: 3rem;"></i>
+    </div>
+    <p class="empty-title">No positions found</p>
+    <p class="empty-subtitle text-muted">
+      {% if search_query %}No positions match your search.{% else %}Create your first position to get started.{% endif %}
+    </p>
+    {% if not search_query %}
+      <div class="empty-action">
+        <a href="{% url 'tasks:position-create' %}" class="btn btn-primary">
+          <i class="ti ti-plus me-1"></i>Create position
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}

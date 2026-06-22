@@ -1,0 +1,103 @@
+<aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu"
+      aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <h1 class="navbar-brand navbar-brand-autodark">
+      <a href="{% url 'tasks:home' %}">
+        <i class="ti ti-checkup-list me-2"></i>Task Manager
+      </a>
+    </h1>
+    <div class="collapse navbar-collapse" id="sidebar-menu">
+      <ul class="navbar-nav pt-lg-3">
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+            href="{% url 'tasks:home' %}">
+            <span class="nav-link-icon d-md-none d-lg-inline-block">
+              <i class="ti ti-home"></i>
+            </span>
+            <span class="nav-link-title">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if 'task' in request.resolver_match.url_name and 'task-type' not in request.resolver_match.url_name %}active{% endif %}"
+            href="{% url 'tasks:task-list' %}">
+            <span class="nav-link-icon d-md-none d-lg-inline-block">
+              <i class="ti ti-checklist"></i>
+            </span>
+            <span class="nav-link-title">Tasks</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if 'worker' in request.resolver_match.url_name %}active{% endif %}"
+            href="{% url 'tasks:worker-list' %}">
+            <span class="nav-link-icon d-md-none d-lg-inline-block">
+              <i class="ti ti-users"></i>
+            </span>
+            <span class="nav-link-title">Workers</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if 'position' in request.resolver_match.url_name %}active{% endif %}"
+            href="{% url 'tasks:position-list' %}">
+            <span class="nav-link-icon d-md-none d-lg-inline-block">
+              <i class="ti ti-briefcase"></i>
+            </span>
+            <span class="nav-link-title">Positions</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if 'task-type' in request.resolver_match.url_name %}active{% endif %}"
+            href="{% url 'tasks:task-type-list' %}">
+            <span class="nav-link-icon d-md-none d-lg-inline-block">
+              <i class="ti ti-tags"></i>
+            </span>
+            <span class="nav-link-title">Task types</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-auto pb-3">
+        {% if user.is_authenticated %}
+          <div class="px-3 py-2">
+            <div class="d-flex align-items-center mb-2">
+              <span class="avatar avatar-sm me-2 bg-blue">{{ user.username|first|upper }}</span>
+              <div class="flex-fill min-w-0">
+                <div class="fw-medium text-white small text-truncate">{{ user.username }}</div>
+                {% if user.position %}
+                  <div class="text-white-50" style="font-size: 11px;">{{ user.position }}</div>
+                {% endif %}
+              </div>
+            </div>
+            <form action="{% url 'accounts:logout' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-sm btn-outline-light w-100" type="submit">
+                <i class="ti ti-logout me-1"></i>Logout
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <ul class="navbar-nav border-top border-secondary border-opacity-25 pt-2">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:login' %}">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                  <i class="ti ti-login"></i>
+                </span>
+                <span class="nav-link-title">Login</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'tasks:register' %}">
+                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                <span class="nav-link-title">Register</span>
+              </a>
+            </li>
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</aside>
